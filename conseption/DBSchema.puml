@@ -1,0 +1,76 @@
+@startuml
+entity "Patients" {
+    * patient_id : INT <<PK>>
+    --
+    first_name : VARCHAR(50)
+    last_name : VARCHAR(50)
+    date_of_birth : DATE
+    email : VARCHAR(100)
+    phone_number : VARCHAR(15)
+    gender : CHAR(1)
+    address : TEXT
+    created_at : TIMESTAMP
+}
+
+entity "Doctors" {
+    * doctor_id : INT <<PK>>
+    --
+    first_name : VARCHAR(50)
+    last_name : VARCHAR(50)
+    specialty : VARCHAR(100)
+    email : VARCHAR(100)
+    phone_number : VARCHAR(15)
+    license_number : VARCHAR(50)
+    created_at : TIMESTAMP
+}
+
+entity "Appointments" {
+    * appointment_id : INT <<PK>>
+    --
+    patient_id : INT <<FK>> (Patients.patient_id)
+    doctor_id : INT <<FK>> (Doctors.doctor_id)
+    appointment_date : TIMESTAMP
+    status : ENUM("Scheduled", "Completed", "Cancelled")
+    reason : TEXT
+    created_at : TIMESTAMP
+}
+
+entity "Medical_Records" {
+    * record_id : INT <<PK>>
+    --
+    patient_id : INT <<FK>> (Patients.patient_id)
+    doctor_id : INT <<FK>> (Doctors.doctor_id)
+    diagnosis : TEXT
+    prescriptions : TEXT
+    treatment_plan : TEXT
+    record_date : TIMESTAMP
+}
+
+entity "Chatbot_Interactions" {
+    * interaction_id : INT <<PK>>
+    --
+    patient_id : INT <<FK>> (Patients.patient_id)
+    message : TEXT
+    response : TEXT
+    interaction_date : TIMESTAMP
+}
+
+
+
+entity "Rendezvous" {
+    * rendezvous_id : INT <<PK>>
+    --
+    patient_id : INT <<FK>> (Patients.patient_id)
+    scheduled_date : TIMESTAMP
+    notes : TEXT
+    status : ENUM("Pending", "Confirmed", "Completed")
+    created_at : TIMESTAMP
+}
+
+Patients ||--o{ Appointments
+Doctors ||--o{ Appointments
+Patients ||--o{ Medical_Records
+Doctors ||--o{ Medical_Records
+Patients ||--o{ Chatbot_Interactions
+
+@enduml
