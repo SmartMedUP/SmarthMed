@@ -8,7 +8,6 @@ public class SmartMedApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SmartMedApplication.class, args);
-        //System.out.println("salem");
     }
 
 }
