@@ -1,14 +1,11 @@
 package com.example.smartmed.repositories;
 
-import com.example.smartmed.models.User;
+import com.example.smartmed.models.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User,Integer> {
-    Optional<User> findByEmail(String email);
-
-
+public interface PatientRepository extends JpaRepository<Patient, Long> {
+    Optional<Patient> findByEmail(String email);
     boolean existsByEmail(String email);
-
 }

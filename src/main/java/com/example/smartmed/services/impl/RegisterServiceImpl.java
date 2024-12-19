@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Service
 public class RegisterServiceImpl implements RegisterService {
 
@@ -31,9 +34,14 @@ public class RegisterServiceImpl implements RegisterService {
         User user = new User();
         BeanUtils.copyProperties(signupRequest,user);
         String hashPassword = passwordEncoder.encode(signupRequest.getPassword());
+        user.setFirstName(signupRequest.getFirstName());
+        user.setLastName(signupRequest.getLastName());
         user.setPassword(hashPassword);
+        user.setPhoneNumber(String.valueOf(signupRequest.getPhoneNumber()));
+        user.setCreatedAt(LocalDateTime.now());
+
         User createdCustomer = userRepository.save(user);
-        user.setUser_id(createdCustomer.getUser_id());
+        user.setId(createdCustomer.getId());
         return user;
     }
 }

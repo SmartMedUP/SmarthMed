@@ -19,12 +19,18 @@ import java.sql.Timestamp;
 public class ChatbotInteraction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer interaction_id;
-    @ManyToOne
+    private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
+
+    @Column(nullable = false)
     private String message;
+
+    @Column(nullable = false)
     private String response;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp interaction_date;
+
+    @Column(name = "interaction_date", nullable = false)
+    private Timestamp interactionDate;
 }

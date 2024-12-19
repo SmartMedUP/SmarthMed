@@ -19,13 +19,21 @@ import java.sql.Timestamp;
 public class Rendezvous {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer rendezvous_id;
-    @ManyToOne
+    private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
-    private Timestamp scheduled_date;
+
+    @Column(name = "scheduled_date", nullable = false)
+    private Timestamp scheduledDate;
+
+    @Column
     private String notes;
+
+    @Column(nullable = false)
     private String status;
-    @Column(nullable = false, updatable = false)
-    private Timestamp created_at;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Timestamp createdAt;
 }

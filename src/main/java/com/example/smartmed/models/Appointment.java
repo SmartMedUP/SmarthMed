@@ -20,17 +20,25 @@ import java.util.Objects;
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer appointment_id;
-    @ManyToOne
+    private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
-    private Timestamp appointment_date;
-    private String status;
-    private String reason;
-    @Column(nullable = false, updatable = false)
-    private Timestamp created_at;
 
+    @Column(name = "appointment_date", nullable = false)
+    private Timestamp appointmentDate;
+
+    @Column(nullable = false)
+    private String status;
+
+    @Column(nullable = false)
+    private String reason;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Timestamp createdAt;
 }

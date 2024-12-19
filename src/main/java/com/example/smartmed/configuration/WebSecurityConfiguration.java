@@ -1,6 +1,5 @@
 package com.example.smartmed.configuration;
 
-
 import com.example.smartmed.filters.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,12 +27,11 @@ public class WebSecurityConfiguration {
         this.jwtRequestFilter = jwtRequestFilter;
     }
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
         return security.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/register", "/login").permitAll()
+                .requestMatchers("/register", "/login", "/api/patients").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/api/**")
                 .authenticated()

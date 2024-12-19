@@ -16,11 +16,15 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "doctors")
 public class Doctor extends User {
+    @Column(nullable = false)
     private String specialty;
-    private String license_number;
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    
+    @Column(name = "license_number", nullable = false, unique = true)
+    private String licenseNumber;
+    
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MedicalRecord> medicalRecords;
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Appointment> appointments;
-
 }
