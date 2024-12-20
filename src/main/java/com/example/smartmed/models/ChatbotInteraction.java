@@ -1,9 +1,13 @@
-package com.example.smartmed.entities;
+package com.example.smartmed.models;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+
 import java.sql.Timestamp;
 
 @Getter
@@ -15,12 +19,18 @@ import java.sql.Timestamp;
 public class ChatbotInteraction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer interaction_id;
-    @ManyToOne
+    private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
+
+    @Column(nullable = false)
     private String message;
+
+    @Column(nullable = false)
     private String response;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp interaction_date;
+
+    @Column(name = "interaction_date", nullable = false)
+    private Timestamp interactionDate;
 }

@@ -1,4 +1,4 @@
-package com.example.smartmed.entities;
+package com.example.smartmed.models;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,22 +12,28 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "patients")
 public class Patient extends User {
-    public Patient() {
-        setUserType(UserType.PATIENT);
-    }
+    @Column(name = "birth_date", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date birth_date;
-    private String gender;
-    private String address;
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<MedicalRecord> medicalRecords;
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<Appointment> appointments;
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<ChatbotInteraction> interactions;
-}
+    private Date birthDate;
 
+    @Column(nullable = false)
+    private String gender;
+
+    @Column(nullable = false)
+    private String address;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MedicalRecord> medicalRecords;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Appointment> appointments;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ChatbotInteraction> interactions;
+
+}
